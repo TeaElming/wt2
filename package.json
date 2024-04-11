@@ -1,0 +1,23 @@
+{
+  "name": "assignment-wt2",
+  "version": "1.0.0",
+  "description": "Replace this with the name of your project. It should be a brief and catchy title that accurately represents your application.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv027/student/ts223ir/assignment-wt2.git"
+  },
+  "keywords": [],
+  "author": "Tea Elming",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "logstash": "^5.0.2",
+    "mysql2": "^3.9.4",
+    "sequelize": "^6.37.2"
+  }
+}
