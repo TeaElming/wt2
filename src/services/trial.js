@@ -1,13 +1,26 @@
 import { EducationService } from './educationService.js'
 
-async function fetchData() {
+async function fetchLSOAData() {
+  console.log('Fetching LSOA data...')
   try {
     const educationService = new EducationService()
-    const fetchedData = await educationService.fetchEducationData('E01000001')
+    const fetchedData = await educationService.fetchGeoCodeData('E01000001')
     console.log('All data: ' + JSON.stringify(fetchedData))
   } catch (error) {
     console.error('Error:', error)
   }
 }
 
-await fetchData()
+async function fetchDecileData() {
+  console.log('Fetching decile data...')
+  try {
+    const educationService = new EducationService()
+    const fetchedData = await educationService.fetchDecileData('5')
+    console.log('All data: ' + JSON.stringify(fetchedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
+// await fetchLSOAData()
+await fetchDecileData()
