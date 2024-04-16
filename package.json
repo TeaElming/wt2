@@ -2,9 +2,10 @@
   "name": "assignment-wt2",
   "version": "1.0.0",
   "description": "Replace this with the name of your project. It should be a brief and catchy title that accurately represents your application.",
-  "main": "index.js",
+  "main": "public/index.js",
   "type": "module",
   "scripts": {
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,7 +17,11 @@
   "license": "ISC",
   "dependencies": {
     "@elastic/elasticsearch": "^8.13.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "d3": "^7.9.0",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "inversify": "^6.0.2",
     "logstash": "^5.0.2",
     "mysql": "^2.18.1",
