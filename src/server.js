@@ -2,10 +2,13 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { ManipulationController } from './controllers/manipulationController.js'
+import container from './config/inversify.config.js'
+import IDENTIFIERS from './config/identifiers.js'
 
 const app = express()
 const PORT = 3000
-const manipulationController = new ManipulationController()
+const manipulationController = container.get(IDENTIFIERS.ManipulationController)
+
 
 app.use(cors())
 app.use(bodyParser.json())

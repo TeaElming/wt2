@@ -16,7 +16,7 @@ export class ManipulationController {
   async manipulateAreaData(req, res) {
     try {
       const { partialAreaName } = req.body // Extract partialAreaName from request body
-      const data = await this.dataManipulationService.manipulateAreaData(
+      const data = await this.manipulationService.manipulateAreaData(
         partialAreaName
       )
       res.status(200).json(data)
@@ -29,7 +29,7 @@ export class ManipulationController {
   async manipulateAverageDecileEducation(req, res) {
     try {
       const { decile_number } = req.body // Extract decile_number from request body
-      const data = await this.dataManipulationService.averageDecileEducation(
+      const data = await this.manipulationService.averageDecileEducation(
         decile_number
       )
       res.status(200).json(data)

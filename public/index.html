@@ -5,12 +5,38 @@
   <meta charset="UTF-8">
   <title>Dynamic Bar Graph</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="./index.js"></script>
 </head>
 
 <body>
-  <div id="graph"></div>
-  <script src="index.js"></script>
   <h1>This will be a graph</h1>
+  <h1>Data Manipulation Interface</h1>
+
+  <h2>Manipulate Geo-Code Data</h2>
+  <form id="geoCodeForm">
+    <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
+    <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
+  </form>
+  <pre id="geoCodeResult"></pre>
+
+  <h2>Manipulate Area Data</h2>
+  <form id="areaForm">
+    <input type="text" id="areaInput" placeholder="Enter Partial Area Name">
+    <button type="button" onclick="manipulateAreaData()">Submit</button>
+  </form>
+  <pre id="areaResult"></pre>
+
+  <h2>Manipulate Average Decile Education</h2>
+  <form id="decileForm">
+    <input type="number" id="decileInput" placeholder="Enter Decile Number">
+    <button type="button" onclick="manipulateDecileData()">Submit</button>
+  </form>
+  <pre id="decileResult"></pre>
+
+  <div>
+    <h2 id="graphTitle">Graph Title</h2>
+    <div id="graph"></div>
+  </div>
 </body>
 
 </html>

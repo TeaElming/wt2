@@ -1,6 +1,6 @@
 import { EducationService } from './educationService.js'
 
-export class DataManipulationService {
+export class ManipulationService {
   constructor() {
     this.educationService = new EducationService()
   }
