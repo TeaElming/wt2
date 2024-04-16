@@ -58,8 +58,33 @@ async function testAreaManipulation() {
   }
 }
 
+async function fetchSumOfDecileData() {
+  console.log('Fetching sum of decile data...')
+  try {
+    const educationService = new EducationService()
+    const fetchedData = await educationService.fetchSumDecileData('5')
+    console.log('All data: ' + JSON.stringify(fetchedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
+async function testAverageDecileSumManipulation() {
+  console.log('Testing decile sum manipulation...')
+  try {
+    const manipulationService = new DataManipulationService()
+    const manipulatedData = await manipulationService.averageDecileEducation('5')
+    console.log('All data: ' + JSON.stringify(manipulatedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
+
 // await fetchLSOAData()
 // await fetchDecileData()
 // await fetchAreaData()
 // await testGeoCodeManipulation()
-await testAreaManipulation()
+// await testAreaManipulation()
+// await fetchSumOfDecileData()
+await testAverageDecileSumManipulation()
