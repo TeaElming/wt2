@@ -1,4 +1,5 @@
 import { EducationService } from './educationService.js'
+import { DataManipulationService } from './manipulationService.js'
 
 async function fetchLSOAData() {
   console.log('Fetching LSOA data...')
@@ -33,6 +34,18 @@ async function fetchDecileData() {
   }
 }
 
+async function testGeoCodeManipulation() {
+  console.log('Testing geoCode manipulation...')
+  try {
+    const manipulationService = new DataManipulationService()
+    const manipulatedData = await manipulationService.manipulateGeoCodeData('E01000001')
+    console.log('All data: ' + JSON.stringify(manipulatedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
 // await fetchLSOAData()
 // await fetchDecileData()
-await fetchAreaData()
+// await fetchAreaData()
+await testGeoCodeManipulation()
