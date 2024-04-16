@@ -15,9 +15,13 @@
   "author": "Tea Elming",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^8.13.1",
     "dotenv": "^16.4.5",
+    "inversify": "^6.0.2",
     "logstash": "^5.0.2",
+    "mysql": "^2.18.1",
     "mysql2": "^3.9.4",
+    "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.2"
   }
 }

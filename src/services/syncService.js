@@ -1,41 +1,51 @@
-// syncService.js
 import { Client } from '@elastic/elasticsearch'
-import EducationLevel from '../models/educationLevel.js' // Assuming this is the correct path to your EducationLevel model
-import IndiciesOfDeprivation from '../models/indiciesOfDeprivation.js' // Assuming this is the correct path to your IndiciesOfDeprivation model
+import EducationLevel from '../models/educationLevel.js'
+import IndiciesOfDeprivation from '../models/indiciesOfDeprivation.js'
+import { EventEmitter } from 'events'
 
 const client = new Client({ node: 'http://localhost:9200' })
+const syncEvents = new EventEmitter()
+syncEvents.setMaxListeners(20)
+console.log('SyncEvents max listeners:', syncEvents.getMaxListeners())
 
 async function indexDataToElasticsearch() {
+  console.log('Starting the indexing process.')
   try {
-    // Retrieve data from MySQL using Sequelize for EducationLevel
-    const educationLevels = await EducationLevel.findAll()
-    // Index each education level document into Elasticsearch
+    console.log('Fetching EducationLevel data...')
+    const educationLevels = await EducationLevel.findAll({
+      attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+    })
+    console.log(
+      `Found ${educationLevels.length} education level records to index.`
+    )
+
+    console.log('Indexing EducationLevel data...')
     await Promise.all(
       educationLevels.map(async (educationLevel) => {
         await client.index({
-          index: 'education_levels_index', // Index name for EducationLevel data
+          index: 'education_levels_index',
           body: educationLevel.toJSON(),
         })
+        console.log(
+          `Indexed EducationLevel record for ID: ${educationLevel.id}`
+        )
       })
     )
+    console.log('EducationLevel data indexed successfully.')
 
-    // Retrieve data from MySQL using Sequelize for IndiciesOfDeprivation
+    console.log('Fetching IndiciesOfDeprivation data...')
     const indiciesOfDeprivationData = await IndiciesOfDeprivation.findAll()
-    // Index each IndiciesOfDeprivation document into Elasticsearch
-    await Promise.all(
-      indiciesOfDeprivationData.map(async (data) => {
-        await client.index({
-          index: 'indicies_of_deprivation_index', // Index name for IndiciesOfDeprivation data
-          body: data.toJSON(),
-        })
-      })
+    console.log(
+      `Found ${indiciesOfDeprivationData.length} indices of deprivation records to index.`
     )
 
-    console.log('Data indexed into Elasticsearch successfully')
+    console.log('All data indexed into Elasticsearch successfully')
+    syncEvents.emit('indexSuccess')
   } catch (error) {
     console.error('Error indexing data into Elasticsearch:', error)
+    syncEvents.emit('indexError', error)
     throw error
   }
 }
 
-export { indexDataToElasticsearch }
+export { indexDataToElasticsearch, syncEvents }

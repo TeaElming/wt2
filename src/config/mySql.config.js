@@ -1,7 +1,8 @@
 /** @format */
-
+import { config } from 'dotenv'
 import { Sequelize } from 'sequelize'
 
+config()
 // Create a new instance of Sequelize using environment variables
 const sequelize = new Sequelize(
   process.env.DB_NAME,

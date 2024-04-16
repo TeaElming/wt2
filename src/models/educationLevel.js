@@ -5,12 +5,8 @@ const EducationLevel = sequelize.define(
   'EducationLevel',
   {
     date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    year: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED, // Assuming 'YEAR' in MySQL corresponds to 'UNSIGNED INTEGER' in Sequelize
+      allowNull: false
     },
     geography: {
       type: DataTypes.STRING,
@@ -55,6 +51,7 @@ const EducationLevel = sequelize.define(
   },
   {
     tableName: 'census_2021_education_levels_lsoa',
+    primaryKey: false,
   }
 )
 
