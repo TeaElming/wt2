@@ -11,6 +11,17 @@ async function fetchLSOAData() {
   }
 }
 
+async function fetchAreaData() {
+  console.log('Fetching area data...')
+  try {
+    const educationService = new EducationService()
+    const fetchedData = await educationService.fetchAreaData('London')
+    console.log('All data: ' + JSON.stringify(fetchedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
 async function fetchDecileData() {
   console.log('Fetching decile data...')
   try {
@@ -23,4 +34,5 @@ async function fetchDecileData() {
 }
 
 // await fetchLSOAData()
-await fetchDecileData()
+// await fetchDecileData()
+await fetchAreaData()
