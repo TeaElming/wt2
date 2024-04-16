@@ -1,8 +1,8 @@
-import sequelize from '../config/mySql.config.js';
+import sequelize from '../config/mySql.config.js'
 
 async function fetchEducationData(geoCode) {
   try {
-    console.log('Try to do mysql query');
+    console.log('Try to do mysql query')
     const result = await sequelize.query(
       `SELECT c.IMD_Decile, e.*
        FROM census_2019_iod_lsoa c
@@ -11,16 +11,37 @@ async function fetchEducationData(geoCode) {
        WHERE c.LSOA21CD = :geoCode;`,
       {
         replacements: { geoCode },
-        type: sequelize.QueryTypes.SELECT
+        type: sequelize.QueryTypes.SELECT,
       }
-    );
+    )
 
-    console.log("Fetched data:", result);
-    return result;
+    const fetchedData = result.length > 0 ? result[0] : null
+
+    console.log('Fetched data:', fetchedData)
+    // Assuming fetchedData is the object you retrieved from the database
+    console.log('IMD Decile:', fetchedData.IMD_Decile)
+    console.log('Date:', fetchedData.date)
+    console.log('Geography:', fetchedData.geography)
+    console.log('Geography Code:', fetchedData.geography_code)
+    console.log('No Qualifications:', fetchedData.no_qualifications)
+    console.log(
+      'Level 1 Entry Qualifications:',
+      fetchedData.level_1_entry_qualifications
+    )
+    console.log('Level 2 Qualifications:', fetchedData.level_2_qualifications)
+    console.log('Apprenticeship:', fetchedData.apprenticeship)
+    console.log('Level 3 Qualifications:', fetchedData.level_3_qualifications)
+    console.log(
+      'Level 4 and Above Qualifications:',
+      fetchedData.level_4_above_qualifications
+    )
+    console.log('Other Qualifications:', fetchedData.other_qualifications)
+    console.log('Total Population:', fetchedData.total_population)
+    return fetchedData
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
+    console.error('Error fetching data:', error)
+    throw error
   }
 }
 
-fetchEducationData('E01000001');
+fetchEducationData('E01000001')
