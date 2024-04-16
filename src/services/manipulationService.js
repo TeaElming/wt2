@@ -16,6 +16,13 @@ export class DataManipulationService {
       // Fetch data for the specified geoCode
       const fetchedData = await this.educationService.fetchGeoCodeData(geoCode)
 
+      // We will want to pass this through as well
+      const LSOAinfo = {
+        LSOA_code: fetchedData.geography_code,
+        LSOA_name: fetchedData.geography,
+        IMD_Decile: fetchedData.IMD_Decile,
+      }
+
       // Calculate total population
       const totalPopulation = fetchedData.total_population
 
@@ -55,9 +62,35 @@ export class DataManipulationService {
         ).toFixed(4)
       }
 
-      return percentages
+      const data = { LSOAinfo, percentages }
+      return data
     } catch (error) {
       console.error('Error manipulating data:', error)
+      throw error
+    }
+  }
+
+  async manipulateAreaData(partialAreaName) {
+    try {
+      // Fetch area data
+      const areaData = await this.educationService.fetchAreaData(
+        partialAreaName
+      )
+
+      // Manipulate data for each LSOA
+      const manipulatedData = await Promise.all(
+        areaData.map(async (lsoa) => {
+          // Extract geography code
+          const geoCode = lsoa.geography_code
+          // Manipulate data for the LSOA
+          const manipulated = await this.manipulateGeoCodeData(geoCode)
+          return manipulated
+        })
+      )
+
+      return manipulatedData
+    } catch (error) {
+      console.error('Error fetching data for area:', error)
       throw error
     }
   }

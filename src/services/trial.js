@@ -39,6 +39,19 @@ async function testGeoCodeManipulation() {
   try {
     const manipulationService = new DataManipulationService()
     const manipulatedData = await manipulationService.manipulateGeoCodeData('E01000001')
+    const decile = manipulatedData.IMD_Decile
+    const percentages = manipulatedData.percentages
+    console.log('All data: ' + JSON.stringify(manipulatedData))
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+
+async function testAreaManipulation() {
+  console.log('Testing area manipulation...')
+  try {
+    const manipulationService = new DataManipulationService()
+    const manipulatedData = await manipulationService.manipulateAreaData('London')
     console.log('All data: ' + JSON.stringify(manipulatedData))
   } catch (error) {
     console.error('Error:', error)
@@ -48,4 +61,5 @@ async function testGeoCodeManipulation() {
 // await fetchLSOAData()
 // await fetchDecileData()
 // await fetchAreaData()
-await testGeoCodeManipulation()
+// await testGeoCodeManipulation()
+await testAreaManipulation()
