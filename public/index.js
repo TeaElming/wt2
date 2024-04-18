@@ -276,10 +276,21 @@ function displayDataAsOneBar(data) {
   //.attr('fill', 'white') // White text for better readability
 }
 
-/* function compareDataSets(dataArray) {
+function compareDataSets(dataArray) {
   const maxBarsVisible = 10 // Maximum bars to display without scrolling
   const barWidth = 100 // Width for each bar, including padding
-  const fullWidth = dataArray.length * barWidth // Total width based on number of data points
+
+  // Calculate the full width based on the number of data points
+  const fullWidth = dataArray.length * barWidth
+
+  // Get the width of the parent div element
+  const parentDivWidth = document.getElementById('graph').clientWidth
+
+  // Determine whether to enable scrolling based on the number of bars
+  const enableScrolling = fullWidth > parentDivWidth
+
+  // Calculate the final width considering whether scrolling is needed
+  const width = enableScrolling ? fullWidth : parentDivWidth
 
   const margin = { top: 40, right: 30, bottom: 200, left: 60 },
     height = 500 - margin.top - margin.bottom
@@ -287,16 +298,24 @@ function displayDataAsOneBar(data) {
   const graphTitle = `Comparison of ${dataArray.length} LSOAs`
   document.getElementById('graphTitle').innerText = graphTitle
 
-  d3.select('#graph').style('overflow-x', 'auto').style('width', '100%') // Enable horizontal scrolling on the div
-  d3.select('#graph svg').remove() // Clear the previous graph
+  // Set the width of the parent div element to accommodate scrolling if needed
+  document.getElementById('graphDiv').style.overflowX = enableScrolling
+    ? 'auto'
+    : 'hidden'
 
+  // Clear the previous graph
+  d3.select('#graph svg').remove()
+
+  // Append the SVG element with dynamic width
   const svg = d3
     .select('#graph')
     .append('svg')
-    .attr('width', fullWidth + margin.left + margin.right) // Set the full width
+    .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+  // Rest of the function remains unchanged...
 
   const x = d3
     .scaleBand()
@@ -388,142 +407,4 @@ function displayDataAsOneBar(data) {
       .attr('height', (d) => height - y(d.value))
       .attr('fill', (d) => d.color)
   })
-}
-*/
-
-function compareDataSets(dataArray) {
-  const maxBarsVisible = 10 // Maximum bars to display without scrolling
-  const barWidth = 100 // Width for each bar, including padding
-  const fullWidth = dataArray.length * barWidth // Total width based on number of data points
-
-  const margin = { top: 40, right: 30, bottom: 200, left: 60 },
-    height = 500 - margin.top - margin.bottom
-
-  const graphTitle = `Comparison of ${dataArray.length} LSOAs`
-  document.getElementById('graphTitle').innerText = graphTitle
-
-  // Setup the SVG only if it does not exist
-  let svg = d3.select('#graph').select('svg')
-  if (svg.empty()) {
-    svg = d3
-      .select('#graph')
-      .append('svg')
-      .attr('width', fullWidth + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-    svg.append('g').attr('class', 'x-axis')
-    svg.append('g').attr('class', 'y-axis')
-  } else {
-    svg.attr('width', fullWidth + margin.left + margin.right) // Update width if the SVG exists
-    svg
-      .select('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-  }
-
-  const x = d3
-    .scaleBand()
-    .range([0, fullWidth])
-    .domain(
-      dataArray.map(
-        (data, index) =>
-          `Bar ${index + 1}: ${data.LSOAinfo.LSOA_name} (${
-            data.LSOAinfo.LSOA_code
-          }) - Decile ${data.LSOAinfo.IMD_Decile}`
-      )
-    )
-    .padding(0.1)
-
-  const y = d3.scaleLinear().domain([0, 1]).range([height, 0])
-
-  // Update axes
-  svg
-    .select('.x-axis')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x))
-    .selectAll('text')
-    .attr('transform', 'translate(-10,0)rotate(-45)')
-    .style('text-anchor', 'end')
-
-  svg.select('.y-axis').call(d3.axisLeft(y).tickFormat(d3.format('.0%')))
-
-  // Update bars
-  const barGroups = svg
-    .selectAll('.bar-group')
-    .data(dataArray, (data) => data.LSOAinfo.LSOA_code)
-
-  barGroups
-    .enter()
-    .append('g')
-    .attr('class', 'bar-group')
-    .merge(barGroups)
-    .each(function (data, index) {
-      const barGroup = d3.select(this)
-      const formattedData = formatGraphData(data)
-      const educationLevels = [
-        {
-          name: 'No Qualifications',
-          value: parseFloat(formattedData.no_qualifications),
-          color: '#ffcccc',
-        },
-        {
-          name: 'Level 1 Entry',
-          value: parseFloat(formattedData.level_1_entry_qualifications),
-          color: '#ff9999',
-        },
-        {
-          name: 'Level 2',
-          value: parseFloat(formattedData.level_2_qualifications),
-          color: '#ff6666',
-        },
-        {
-          name: 'Apprenticeship',
-          value: parseFloat(formattedData.apprenticeship),
-          color: '#ff3333',
-        },
-        {
-          name: 'Level 3',
-          value: parseFloat(formattedData.level_3_qualifications),
-          color: '#ff0000',
-        },
-        {
-          name: 'Level 4 and Above',
-          value: parseFloat(formattedData.level_4_above_qualifications),
-          color: '#cc0000',
-        },
-        {
-          name: 'Other Qualifications',
-          value: parseFloat(formattedData.other_qualifications),
-          color: '#990000',
-        },
-      ]
-
-      let yStack = 0 // Initialize yStack for each group
-      const bars = barGroup.selectAll(`rect.bar-${index}`).data(educationLevels)
-
-      bars
-        .enter()
-        .append('rect')
-        .merge(bars)
-        .attr(
-          'x',
-          x(
-            `Bar ${index + 1}: ${data.LSOAinfo.LSOA_name} (${
-              data.LSOAinfo.LSOA_code
-            }) - Decile ${data.LSOAinfo.IMD_Decile}`
-          )
-        )
-        .attr('y', (d) => {
-          const yPos = y(yStack + d.value)
-          yStack += d.value
-          return yPos
-        })
-        .attr('width', x.bandwidth())
-        .attr('height', (d) => height - y(d.value))
-        .attr('fill', (d) => d.color)
-
-      bars.exit().remove() // Remove old bars
-    })
-
-  barGroups.exit().remove()
 }
