@@ -9,33 +9,52 @@
 </head>
 
 <body>
-  <h1>This will be a graph</h1>
-  <h1>Data Manipulation Interface</h1>
+  <header>
+    <h1>Education and IMD Decile Data</h1>
+    <nav>
+      <form>
+        <ul>
+          <li><label><input type="radio" name="navCheckbox" value="geoCodeForm"> View Data by LSOA-code</label></li>
+          <li><label><input type="radio" name="navCheckbox" value="areaForm"> View Data by Region Name</label></li>
+          <li><label><input type="radio" name="navCheckbox" value="decileForm"> View Data by IMD Decile</label></li>
+        </ul>
+      </form>
+    </nav>
+  </header>
+  <div id="geoCodeDiv">
+    <h2>View Data by LSOA-code</h2>
+    <p>Presents the education levels for the requested LSOA.</p>
+    <form id="geoCodeForm">
+      <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
+      <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
+    </form>
+    <pre id="geoCodeResult"></pre>
+  </div>
 
-  <h2>Manipulate Geo-Code Data</h2>
-  <form id="geoCodeForm">
-    <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
-    <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
-  </form>
-  <pre id="geoCodeResult"></pre>
+  <div id="areaDiv">
+    <h2>View Data by Region Name</h2>
+    <p>Presents the education levels for all LSOAs within the area.</p>
+    <form id="areaForm">
+      <input type="text" id="areaInput" placeholder="Enter Partial Area Name">
+      <button type="button" onclick="manipulateAreaData()">Submit</button>
+    </form>
+    <pre id="areaResult"></pre>
+  </div>
 
-  <h2>Manipulate Area Data</h2>
-  <form id="areaForm">
-    <input type="text" id="areaInput" placeholder="Enter Partial Area Name">
-    <button type="button" onclick="manipulateAreaData()">Submit</button>
-  </form>
-  <pre id="areaResult"></pre>
+  <div id="decileDiv">
+    <h2>View Data by Indices of Multiple Deprivation (IMDB) Decile</h2>
+    <p>Presents the mean education levels for all LSOAs within the IMD Decile.</p>
+    <form id="decileForm">
+      <input type="text" id="decileInput" placeholder="Enter Decile Number">
+      <button type="button" onclick="manipulateDecileData()">Submit</button>
+    </form>
+    <pre id="decileResult"></pre>
+  </div>
 
-  <h2>Manipulate Average Decile Education</h2>
-  <form id="decileForm">
-    <input type="number" id="decileInput" placeholder="Enter Decile Number">
-    <button type="button" onclick="manipulateDecileData()">Submit</button>
-  </form>
-  <pre id="decileResult"></pre>
-
-  <div>
+  <div id="graphDiv">
     <h2 id="graphTitle">Graph Title</h2>
     <div id="graph"></div>
+    <p>That is all.</p>
   </div>
 </body>
 
