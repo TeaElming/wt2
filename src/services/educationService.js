@@ -3,7 +3,6 @@ import sequelize from '../config/mySql.config.js'
 export class EducationService {
   async fetchGeoCodeData(geoCode) {
     try {
-      console.log('Try to fetch LSOA data through mysql query')
       const result = await sequelize.query(
         `SELECT c.IMD_Decile, e.*
        FROM census_2019_iod_lsoa c
@@ -27,8 +26,6 @@ export class EducationService {
 
   async fetchAreaData(partialAreaName) {
     try {
-      console.log('Fetching area data...')
-      console.log('Try to fetch LSOA data through mysql query')
       const result = await sequelize.query(
         `SELECT c.IMD_Decile, e.*
          FROM census_2019_iod_lsoa c
@@ -50,7 +47,6 @@ export class EducationService {
 
   async fetchDecileData(decile_number) {
     try {
-      console.log('Try to fetch IMD decile data through mysql query')
       const result = await sequelize.query(
         `SELECT c.IMD_Decile, e.*
          FROM census_2019_iod_lsoa c
@@ -73,8 +69,6 @@ export class EducationService {
   // Doing the summarising straight from the database to minimise computation time
   async fetchSumDecileData(decile_number) {
     try {
-      console.log('Try to fetch and sum IMD decile data through mysql query')
-
       const result = await sequelize.query(
         `SELECT c.IMD_Decile,
         SUM(e.no_qualifications) AS sum_no_qualifications,

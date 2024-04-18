@@ -36,8 +36,6 @@ function manipulateAreaData() {
     .then((data) => {
       if (data && data.length > 0) {
         // Check if data array is not empty
-        //updateGraph(formatGraphData(data[0])) // Format and validate data
-        //displayDataAsOneBar(formatGraphData(data[0]))
         compareDataSets(data)
       }
     })
@@ -308,14 +306,12 @@ function compareDataSets(dataArray) {
 
   // Append the SVG element with dynamic width
   const svg = d3
-    .select('#graph')
+    .select('#graph') // where we select the div to add it
     .append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
-    .append('g')
+    .append('g') // This is where the graph is added to the div
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
-
-  // Rest of the function remains unchanged...
 
   const x = d3
     .scaleBand()
