@@ -407,3 +407,44 @@ function compareDataSets(dataArray) {
       .attr('fill', (d) => d.color)
   })
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Select the radio buttons
+  const navCheckboxes = document.querySelectorAll('input[name="navCheckbox"]')
+
+  // Get the divs to be shown/hidden
+  const mapDiv = document.getElementById('map')
+  const geoCodeDiv = document.getElementById('outerGeoCodeDiv')
+  const areaDiv = document.getElementById('areaDiv')
+  const decileDiv = document.getElementById('decileDiv')
+
+  // Initially hide the divs based on the default radio button selection
+  if (navCheckboxes[0].checked) {
+    mapDiv.style.display = 'block'
+    geoCodeDiv.style.display = 'block'
+    areaDiv.style.display = 'block'
+    decileDiv.style.display = 'none'
+  } else {
+    mapDiv.style.display = 'none'
+    geoCodeDiv.style.display = 'none'
+    areaDiv.style.display = 'none'
+    decileDiv.style.display = 'block'
+  }
+
+  // Add event listeners to the radio buttons
+  navCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      if (navCheckboxes[0].checked) {
+        mapDiv.style.display = 'block'
+        geoCodeDiv.style.display = 'block'
+        areaDiv.style.display = 'block'
+        decileDiv.style.display = 'none'
+      } else {
+        mapDiv.style.display = 'none'
+        geoCodeDiv.style.display = 'none'
+        areaDiv.style.display = 'none'
+        decileDiv.style.display = 'block'
+      }
+    })
+  })
+})

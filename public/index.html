@@ -19,31 +19,42 @@
 <body>
   <header>
     <h1>Education and IMD Decile Data</h1>
+    <h2>This application aims to display education levels for individual LSOAs and Deciles.</h2>
     <nav>
       <form>
         <ul>
-          <li><label><input type="radio" name="navCheckbox" value="geoCodeForm"> View Data by LSOA-code</label></li>
-          <li><label><input type="radio" name="navCheckbox" value="areaForm"> View Data by Region Name</label></li>
-          <li><label><input type="radio" name="navCheckbox" value="decileForm"> View Data by IMD Decile</label></li>
+          <li><label><input type="radio" name="navCheckbox" value="geoCodeForm"> Map View of Data by LSOA-code</label>
+          </li>
+          <li><label><input type="radio" name="navCheckbox" value="decileForm"> View Mean Data by IMD Decile</label></li>
+          </li>
         </ul>
       </form>
     </nav>
   </header>
 
+  <div>
+    <h2>Education and IMD Decile Data</h2>
+    <p>Zoom in and click on the map to view the education levels for the selected LSOA.</p>
+    <p>Click on the bar graph to view the education levels for the selected IMD Decile.</p>
+  </div>
 
 
 
   <div id="map" style="width: 800px; height: 600px;"></div>
   <script type="module" src="./mapScript.js"></script>
 
-  <div id="geoCodeDiv">
-    <h2>View Data by LSOA-code</h2>
-    <p>Presents the education levels for the requested LSOA.</p>
-    <form id="geoCodeForm">
-      <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
-      <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
-    </form>
-    <pre id="geoCodeResult"></pre>
+  <div id="outerGeoCodeDiv">
+    <div id="fakeGeoCodeNav">
+      <p><i>Can't find the LSOA that you are looking for?</i></p>
+    </div>
+    <div id="geoCodeDiv">
+      <p><i>Search for a specific LSOA code here: </i></p>
+      <form id="geoCodeForm">
+        <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
+        <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
+      </form>
+      <pre id="geoCodeResult"></pre>
+    </div>
   </div>
 
   <div id="areaDiv">
