@@ -14,7 +14,10 @@ export class ManipulationService {
   async manipulateGeoCodeData(geoCode) {
     try {
       // Fetch data for the specified geoCode
+      console.log('Made it into the manipulation service with geo code: ' + geoCode)
+      console.log('Type of geo code: ' + typeof(geoCode))
       const fetchedData = await this.educationService.fetchGeoCodeData(geoCode)
+      //console.log('Fetched data: ' + fetchedData)
 
       // We will want to pass this through as well
       const LSOAinfo = {

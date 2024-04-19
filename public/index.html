@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="./index.css">
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="./index.js"></script>
+
+  <!-- Potentially Delete-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
+
 </head>
 
 <body>
@@ -22,6 +29,13 @@
       </form>
     </nav>
   </header>
+
+
+
+
+  <div id="map" style="width: 800px; height: 600px;"></div>
+  <script type="module" src="./mapScript.js"></script>
+
   <div id="geoCodeDiv">
     <h2>View Data by LSOA-code</h2>
     <p>Presents the education levels for the requested LSOA.</p>
@@ -51,6 +65,8 @@
     </form>
     <pre id="decileResult"></pre>
   </div>
+
+
 
   <div id="graphDiv">
     <h2 id="graphTitle">Graph Title</h2>

@@ -5,6 +5,7 @@ export class ManipulationController {
   async manipulateGeoCodeData(req, res) {
     try {
       const { geoCode } = req.body // Extract geoCode from request body
+      console.log('Made it to the controller with geo code: ' + geoCode)
       const data = await this.manipulationService.manipulateGeoCodeData(geoCode)
       res.status(200).json(data)
     } catch (error) {

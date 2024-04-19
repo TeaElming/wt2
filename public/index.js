@@ -1,6 +1,8 @@
 function manipulateGeoCodeData() {
   console.log('You have attempted to trigger: manipulateGeoCodeData')
   const geoCode = document.getElementById('geoCodeInput').value
+  console.log('For geo code: ' + geoCode)
+
   fetch('/manipulate-geo-code-data', {
     method: 'POST',
     headers: {
@@ -12,6 +14,7 @@ function manipulateGeoCodeData() {
     .then((data) => {
       if (data && data.percentages) {
         // Validate data structure
+        console.log('Making it into the response bit? ')
         updateGraph(formatGraphData(data))
       }
     })
