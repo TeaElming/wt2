@@ -32,32 +32,20 @@ function updateLayerVisibility() {
     if (!map.hasLayer(geoJsonLayer)) {
       map.addLayer(geoJsonLayer)
     }
-    if (document.getElementById('zoom-banner')) {
-      document.getElementById('zoom-banner').style.display = 'none'
-    }
+    document.getElementById('zoom-banner').style.display = 'none' // Hide banner
   } else {
     if (map.hasLayer(geoJsonLayer)) {
       map.removeLayer(geoJsonLayer)
     }
-    if (document.getElementById('zoom-banner')) {
-      document.getElementById('zoom-banner').style.display = 'block'
-    }
+    document.getElementById('zoom-banner').style.display = 'block' // Show banner
   }
 }
 
-// Add banner div for zoom instructions
+// Add this right after creating the map object to ensure it's positioned correctly
 const zoomBanner = document.createElement('div')
 zoomBanner.id = 'zoom-banner'
-zoomBanner.style.position = 'absolute'
-zoomBanner.style.top = '50px'
-zoomBanner.style.left = '50%'
-zoomBanner.style.transform = 'translateX(-50%)'
-zoomBanner.style.padding = '10px'
-zoomBanner.style.background = 'rgba(255, 255, 255, 0.8)'
-zoomBanner.style.border = '1px solid #ddd'
-zoomBanner.style.borderRadius = '4px'
 zoomBanner.textContent = 'Zoom in to view LSOAs'
-document.body.appendChild(zoomBanner)
+document.getElementById('map').appendChild(zoomBanner) // Append it as a child of the map container
 
 // Listen to zoom events to update layer visibility
 map.on('zoomend', updateLayerVisibility)

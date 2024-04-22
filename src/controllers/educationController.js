@@ -27,6 +27,16 @@ export class EducationController {
     }
   }
 
+  async fetchAreaNames(req, res) {
+    try {
+      const results = await this.educationService.fetchAreaNames()
+      res.status(200).json(results)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      res.status(500).json({ error: 'Error fetching data' })
+    }
+  }
+
   async fetchDecileData(req, res) {
     try {
       const { decile_number } = req.body

@@ -42,8 +42,34 @@ export class EducationService {
           type: sequelize.QueryTypes.SELECT,
         }
       )
-
       return result
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      throw error
+    }
+  }
+
+  async fetchAreaNames() {
+    console.log('Made it into the education service without a geo code')
+    try {
+      const result = await sequelize.query(
+        `SELECT e.geography_code, e.geography, COUNT(*) as count
+         FROM uk_lsoa_data.census_2021_education_levels_lsoa e
+         GROUP BY e.geography_code, e.geography`,
+        {
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+
+      const fetchedData = {
+        count: result.length,
+        areas: result.map((row) => ({
+          geography_code: row.geography_code,
+          geography: row.geography,
+        })),
+      }
+
+      return fetchedData
     } catch (error) {
       console.error('Error fetching data:', error)
       throw error

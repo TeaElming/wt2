@@ -19,3 +19,17 @@ nav li:hover {
   background-color: lightblue; /* Change background color when hovered over */
 }
 
+#zoom-banner {
+  position: absolute;
+  top: 50%; /* Center vertically in the map */
+  left: 50%; /* Center horizontally in the map */
+  transform: translate(-50%, -50%); /* Perfect center alignment */
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  z-index: 1000; /* Make sure it appears above the map */
+  display: none; /* Start hidden */
+  text-align: center;
+  width: 220px; /* Fixed width for better control */
+}

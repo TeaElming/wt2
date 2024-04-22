@@ -8,6 +8,7 @@ import IDENTIFIERS from './config/identifiers.js'
 const app = express()
 const PORT = 3000
 const manipulationController = container.get(IDENTIFIERS.ManipulationController)
+const educationController = container.get(IDENTIFIERS.EducationController)
 
 
 app.use(cors())
@@ -18,6 +19,10 @@ app.use(express.static('public'))
 app.post('/manipulate-geo-code-data', async (req, res) => {manipulationController.manipulateGeoCodeData(req, res)})
 app.post('/manipulate-area-data', async (req, res) => {manipulationController.manipulateAreaData(req, res)})
 app.post('/manipulate-average-decile-education', async (req, res) => {manipulationController.manipulateAverageDecileEducation(req, res)})
+app.get('/fetch-geo-code-names', async (req, res) => {educationController.fetchAreaNames(req, res)})
+
+
+
 
 
 app.listen(PORT, () => {

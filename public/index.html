@@ -6,7 +6,7 @@
   <title>Dynamic Bar Graph</title>
   <link rel="stylesheet" href="./index.css">
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="./index.js"></script>
+  <script type="module" src="./index.js"  ></script>
 
   <!-- Potentially Delete-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
@@ -21,14 +21,7 @@
     <h1>Education and IMD Decile Data</h1>
     <h2>This application aims to display education levels for individual LSOAs and Deciles.</h2>
     <nav>
-      <form>
-        <ul>
-          <li><label><input type="radio" name="navCheckbox" value="geoCodeForm"> Map View of Data by LSOA-code</label>
-          </li>
-          <li><label><input type="radio" name="navCheckbox" value="decileForm"> View Mean Data by IMD Decile</label></li>
-          </li>
-        </ul>
-      </form>
+
     </nav>
   </header>
 
@@ -39,10 +32,6 @@
   </div>
 
 
-
-  <div id="map" style="width: 800px; height: 600px;"></div>
-  <script type="module" src="./mapScript.js"></script>
-
   <div id="outerGeoCodeDiv">
     <div id="fakeGeoCodeNav">
       <p><i>Can't find the LSOA that you are looking for?</i></p>
@@ -51,31 +40,39 @@
       <p><i>Search for a specific LSOA code here: </i></p>
       <form id="geoCodeForm">
         <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
-        <button type="button" onclick="manipulateGeoCodeData()">Submit</button>
+        <button type="button" id="submitGeoCodeButton" onclick="manipulateGeoCodeData()">Submit</button>
       </form>
       <pre id="geoCodeResult"></pre>
     </div>
   </div>
 
-  <div id="areaDiv">
-    <h2>View Data by Region Name</h2>
-    <p>Presents the education levels for all LSOAs within the area.</p>
-    <form id="areaForm">
-      <input type="text" id="areaInput" placeholder="Enter Partial Area Name">
-      <button type="button" onclick="manipulateAreaData()">Submit</button>
-    </form>
-    <pre id="areaResult"></pre>
+
+
+  <h1>There are a total of <span id="totalLSOAs">0</span> LSOAs in England. Start typing, either a specific LSOA code or
+    the name of an area, to narrow it down</h1>
+
+  <input type="text" id="searchInput" placeholder="Search LSOAs...">
+  <div id="resultsContainer"></div>
+  <button id="prevButton" onclick="goToPrevPage()">Previous</button>
+  <button id="nextButton" onclick="goToNextPage()">Next</button>
+  <span id="pageInfo"></span>
+
   </div>
+
 
   <div id="decileDiv">
     <h2>View Data by Indices of Multiple Deprivation (IMDB) Decile</h2>
     <p>Presents the mean education levels for all LSOAs within the IMD Decile.</p>
     <form id="decileForm">
       <input type="text" id="decileInput" placeholder="Enter Decile Number">
-      <button type="button" onclick="manipulateDecileData()">Submit</button>
+      <button type="button" id="decileSubmitButton">Submit</button>
     </form>
     <pre id="decileResult"></pre>
   </div>
+
+
+  <div id="map" style="width: 800px; height: 600px;"></div>
+  <script type="module" src="./js/mapScript.js"></script>
 
 
 
