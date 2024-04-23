@@ -19,13 +19,13 @@ body {
 
 header {
   grid-area: header;
-  border: 1px solid #5f2929;
+
   padding: 5px;
   text-align: center; /* Center the header content */
 }
 
 #selectiongrid, #optionsListDiv, #map, #graphDiv {
-  border: 1px solid #5f2929;
+
   padding: 5px;
   height: 100%; /* Full height of their grid area */
 }
@@ -60,7 +60,7 @@ p {
 
 #selectiongrid {
   grid-area: selectiongrid;
-  border: 1px solid #5f2929;
+
   padding: 5px;
   width: 40vw; /* 40% of the viewport width */
   max-width: 600px; /* Maximum width to limit it */
@@ -72,7 +72,7 @@ p {
   height: 40vw; /* Same height as width to make it a square */
   max-width: 600px; /* Maximum width to limit it */
   max-height: 600px; /* Maximum height to limit it */
-  border: 1px solid #5f2929;
+
   padding: 5px;
 }
 
