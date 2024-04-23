@@ -1,20 +1,27 @@
-# Project Title
-
-Replace this with the name of your project. It should be a brief and catchy title that accurately represents your application.
+# Deprivation and Education Tracker
 
 ## Project Description
 
-Write a brief description of your application here. The description should provide an overview of the application features, its purpose, and how it achieves the objective of the assignment. Discuss the dataset used and why it was chosen.
-
-Describe the insights you are providing through your interactive visualization. Highlight the questions this project is intended to answer or the insights you aim to provide.
+This application provides data about education levels for specific LSOAs, as well as their Index of Multiple Deprivation Deciles.
+The user can choose to select the LSOA in different ways, or to select to view data about a certain IMD Decile.
 
 ## Core Technologies
 
-Include a list of the main technologies used in your project. Explain why you decided to use these technologies and what benefits they have provided in accomplishing your goals. This can include the backend framework, data analysis and processing tools, data visualization library, frontend technology, and deployment platform.
+### Backend
+Backend is built using Node.js and Express.
+MySQL is used for communicating with the database, while Sequelize (an Object-Relational Mapper) is used for managing the queries.
+Inversify and Relfect-metadata have been used to expand the MVC model to include containers, which improves the scalability of the project.
+
+### Frontend
+The package d3.js is used for data visualisation. It is a JS library which can create dynamic visualisations in the web browser.
 
 ## How to Use
 
-This section should contain instructions for how to use your application. Explain the controls used in your visualization and how to interact with it to uncover different insights. Providing screenshots and/or gifs can greatly help users understand how to use your application.
+The user is presented with an interface containing input fields, some information, a map, and a list of LSOAs.
+The user can input a known LSOA code into the input field, and a graph of the education levels will be displayed. The user can then elect to compare this information with the mean values for all LSOAs within the given decile.
+THe user can also choose to zoom in on the map to find the LSOA of interest, or use the list which can be filtered by typing in the field.
+
+The user can also choose to view just the mean data for any given decile, which can be helpful for making general statements about education levels in different socio-economic areas. 
 
 ## Link to the Deployed Application
 
