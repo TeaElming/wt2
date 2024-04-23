@@ -1,10 +1,12 @@
 import { GraphingFunctionality } from './graphingFunctionality.js'
+import { ComparisonGraph } from './comparisonGraph.js';
 
 export class LsoaGraph {
   constructor() {
     this.graphingFunc = new GraphingFunctionality();
     this.currentDecile = null;
     this.currentData = null;
+    this.comparisonGrapher = new ComparisonGraph()
     this.setupEventListeners();
     this.initializeVisibility(); // Set initial visibility state
   }
@@ -70,37 +72,6 @@ export class LsoaGraph {
     });
   }
 
-  compareWithMeanValues() {
-    if (!this.currentDecile || !this.currentData) {
-      console.error('No current decile or data available for comparison.');
-      return;
-    }
-
-    fetch('/manipulate-average-decile-education', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ decile_number: this.currentDecile }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch mean decile data');
-      }
-      return response.json();
-    })
-    .then(meanData => {
-      if (meanData) {
-        const formattedOgData = this.graphingFunc.formatComparisonGraphData(this.currentData);
-        const formattedComparisonData = this.graphingFunc.formatComparisonGraphData(meanData);
-        this.graphingFunc.graphComparedData(formattedOgData, formattedComparisonData);
-      } else {
-        console.error('No mean data received for comparison.');
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching mean decile data:', error);
-    });
-  }
-
   toggleControlsVisibility(visible) {
     const controlsDiv = document.getElementById('graph-controls');
     if (visible) {
@@ -108,5 +79,15 @@ export class LsoaGraph {
     } else {
       controlsDiv.classList.add('hidden');
     }
+  }
+
+  compareWithMeanValues() {
+    if (!this.currentDecile || !this.currentData) {
+      console.error('No current decile or data available for comparison.');
+      return;
+    }
+
+    this.comparisonGrapher.compareWithMeanValues(this.currentDecile, this.currentData);
+
   }
 }
