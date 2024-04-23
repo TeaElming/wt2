@@ -4,6 +4,7 @@ export class DecileRepresentations {
   constructor() {
     this.graphingFunc = new GraphingFunctionality()
     this.setupEventListeners()
+    this.hideControls()
   }
 
   setupEventListeners() {
@@ -22,7 +23,9 @@ export class DecileRepresentations {
     console.log(
       'You have attempted to trigger: manipulateDecileData for Decile Number:',
       decile_number
+
     )
+    this.hideControls()
     fetch('/manipulate-average-decile-education', {
       method: 'POST',
       headers: {
@@ -52,5 +55,10 @@ export class DecileRepresentations {
         document.getElementById('decileResult').innerText =
           'Error: ' + error.toString()
       })
+  }
+
+  hideControls() {
+    const controlsDiv = document.getElementById('graph-controls')
+    controlsDiv.classList.add('hidden') // Hide the controls initially
   }
 }
