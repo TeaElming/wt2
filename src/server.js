@@ -28,5 +28,5 @@ app.get(`${baseURL}/fetch-geo-code-names` , async (req, res) => {educationContro
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Server running on ${baseURL}${PORT}`)
 })
