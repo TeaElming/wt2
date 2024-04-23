@@ -87,7 +87,6 @@ p {
   height: max-content; /* Same height as width to make it a square */
   max-width: 600px; /* Maximum width to limit it */
   max-height: 600px; /* Maximum height to limit it */
-  border: 1px solid #5f2929;
   padding: 5px;
 }
 
