@@ -23,7 +23,6 @@ export class DecileRepresentations {
     console.log(
       'You have attempted to trigger: manipulateDecileData for Decile Number:',
       decile_number
-
     )
     this.hideControls()
     fetch('/manipulate-average-decile-education', {
@@ -45,6 +44,7 @@ export class DecileRepresentations {
               IMD_Decile: decile_number, // Use input decile_number as IMD_Decile
             },
           }
+          document.getElementById('graph').innerHTML = ''
           this.graphingFunc.updateGraph(
             this.graphingFunc.formatGraphData(enhancedData)
           ) // Pass the enhanced data to the graphing functionality

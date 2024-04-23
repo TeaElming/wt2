@@ -155,6 +155,7 @@ export class ListOfLsoas {
    */
   handleClick(geocode) {
     console.log(`Clicked on row with geocode: ${geocode}`)
+    document.getElementById('graph').innerHTML = ''
     this.lsoaGraph.manipulateGeoCodeData(geocode)
   }
 }

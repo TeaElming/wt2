@@ -18,7 +18,7 @@ export class LsoaGraph {
     submitButton.addEventListener('click', () => {
       const geoCode = document.getElementById('geoCodeInput').value;
       this.manipulateGeoCodeData(geoCode);
-      document.getElementById('graph').innerHTML = '';
+      document.getElementById('graph').innerHTML = ''
 
     });
 
