@@ -29,10 +29,11 @@
     </div>
     <div id="outerGeoCodeDiv">
       <div id="geoCodeDiv">
+        <h2>View LSOA-specific data</h2>
         <p><i>Type in a specific LSOA code. If you are uncertain about the code, please use the provided list. </i></p>
         <form id="geoCodeForm">
           <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
-          <button type="button" id="submitGeoCodeButton" onclick="manipulateGeoCodeData()">Submit</button>
+          <button type="button" id="submitGeoCodeButton" >Submit</button>
           <div id="geoCodeError" style="color:red;"></div>
         </form>
         <pre id="geoCodeResult"></pre>
@@ -40,7 +41,7 @@
     </div>
 
     <div id="decileDiv">
-      <h2>View Data by Indices of Multiple Deprivation (IMD) Decile</h2>
+      <h2>View IMD-specific data</h2>
       <p>Presents the mean education levels for all LSOAs within the IMD Decile.</p>
       <form id="decileForm">
         <label for="decileSlider">Select Decile (Lowest to Highest):</label>
@@ -53,8 +54,6 @@
       </form>
       <pre id="decileResult"></pre>
     </div>
-
-
   </div>
 
 
