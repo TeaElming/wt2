@@ -1,6 +1,6 @@
-import { GraphingFunctionality } from "./graphingFunctionality.js"
+import { LsoaGraph } from './lsoaGraph.js'
 
-const graphFormatter = new GraphingFunctionality()
+const lsoaGraph = new LsoaGraph()
 // Initialize the map
 const map = L.map('map').setView([52.461279, -1.826189], 6) // Set to England and Wales
 
@@ -69,26 +69,7 @@ function mapGeoCode(event) {
     geocode
   )
 
-  fetch('/manipulate-geo-code-data', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ geoCode: geocode }), // Correct variable name
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data && data.percentages) {
-        // Validate data structure
-        console.log('Making it into the response bit? ')
-        graphFormatter.updateGraph(graphFormatter.formatGraphData(data))
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error)
-      document.getElementById('geoCodeResult').innerText =
-        'Error: ' + error.toString()
-    })
+  lsoaGraph.manipulateGeoCodeData(geocode)
 }
 
 document.addEventListener('click', function (event) {
@@ -96,5 +77,3 @@ document.addEventListener('click', function (event) {
     mapGeoCode(event)
   }
 })
-
-
