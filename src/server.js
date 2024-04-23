@@ -6,11 +6,12 @@ import IDENTIFIERS from './config/identifiers.js'
 import { config } from 'dotenv'
 
 const app = express()
-const PORT = 3000
+
 const manipulationController = container.get(IDENTIFIERS.ManipulationController)
 const educationController = container.get(IDENTIFIERS.EducationController)
 config()
-baseURL = process.env.BASE_URL
+const baseURL = process.env.BASE_URL
+const PORT = process.env.PORT || 3000
 
 
 app.use(cors())
