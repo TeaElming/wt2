@@ -1,24 +1,108 @@
+body {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "selectiongrid graphDiv"
+    "map optionsListDiv"; /* Ensuring correct placement of graphDiv and optionsListDiv */
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-template-rows: minmax(70px, auto) 1fr 1fr; /* More compact rows */
+  gap: 10px; /* Reduced gap */
+  justify-content: center; /* Center the grid horizontally */
+  align-items: start; /* Align items to the start to compact the layout */
+  width: 80%; /* Set the body width to 80% of the viewport width */
+  height: 100vh; /* Ensures everything fits in one viewport height */
+  margin: 0 auto; /* Center the body element horizontally */
+  padding: 10px; /* Uniform padding */
+  background-color: #f5efe6;
+  overflow: auto; /* Adds scrollbar if content overflows */
+}
+
+header {
+  grid-area: header;
+  border: 1px solid #5f2929;
+  padding: 5px;
+  text-align: center; /* Center the header content */
+}
+
+#selectiongrid, #optionsListDiv, #map, #graphDiv {
+  border: 1px solid #5f2929;
+  padding: 5px;
+  height: 100%; /* Full height of their grid area */
+}
+
+#selectiongrid, #optionsListDiv {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-around; /* Evenly space out children */
+}
+
+#map, #graphDiv {
+  height: calc(50vh - 50px); /* Limit height to half of the viewport height minus the grid gap */
+  max-height: 600px; /* Limits the maximum height if needed */
+}
+
+/* General element sizing */
+input, button, select, .slider {
+  max-width: 100%; /* Ensures no overflow */
+  height: 40px; /* Standardizes height */
+}
+
+/* Styling adjustments */
+h1, h2 {
+  margin: 0 0 10px 0; /* Reducing margins */
+  font-size: 1.5rem; /* Standardizing font sizes */
+}
+
+p {
+  margin-bottom: 5px; /* Minimal margin */
+}
+
+
+#selectiongrid {
+  grid-area: selectiongrid;
+  border: 1px solid #5f2929;
+  padding: 5px;
+  width: 40vw; /* 40% of the viewport width */
+  max-width: 600px; /* Maximum width to limit it */
+}
+
+#optionsListDiv {
+  grid-area: optionsListDiv;
+  width: 40vw; /* 40% of the viewport width */
+  height: 40vw; /* Same height as width to make it a square */
+  max-width: 600px; /* Maximum width to limit it */
+  max-height: 600px; /* Maximum height to limit it */
+  border: 1px solid #5f2929;
+  padding: 5px;
+}
+
+#map {
+  grid-area: map;
+  border: 1px solid #5f2929;
+}
+
 #graphDiv {
-  width: 700px;
+  grid-area: graphDiv;
+  width: 40vw; /* 40% of the viewport width */
+  height: max-content; /* Same height as width to make it a square */
+  max-width: 600px; /* Maximum width to limit it */
+  max-height: 600px; /* Maximum height to limit it */
+  border: 1px solid #5f2929;
+  padding: 5px;
 }
 
-nav ul {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0;
-  margin: 0;
+/* Adjust hover background color for list items */
+li:hover {
+  background-color: lightblue;
 }
 
-nav li {
-  display: inline-block; /* Place li elements next to each other */
-  border: 1px solid black; /* Outline the li elements */
-  padding: 10px;
-  background-color: lightgreen; /* Default background color */
+.row:hover {
+  background-color: #4F6F52;
+  color: #F5EFE6;
+  cursor: pointer;
 }
 
-nav li:hover {
-  background-color: lightblue; /* Change background color when hovered over */
-}
-
+/* Styles for zoom banner */
 #zoom-banner {
   position: absolute;
   top: 50%; /* Center vertically in the map */
@@ -32,4 +116,94 @@ nav li:hover {
   display: none; /* Start hidden */
   text-align: center;
   width: 220px; /* Fixed width for better control */
+}
+
+/* Styles for map */
+#map {
+  width: 40vw; /* 40% of the viewport width */
+  height: 40vw; /* Same height as width to make it a square */
+  max-width: 600px; /* Maximum width to limit it */
+  max-height: 600px; /* Maximum height to limit it */
+}
+
+/* Font styles for headers and paragraphs */
+h1, h2, h3, p {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Style individual headers */
+h1 {
+  color: #1a4d2e;
+  font-size: 2em;
+}
+
+h2 {
+  color: #4f6f52;
+  font-size: 1.5em;
+}
+
+/* Adjust margin for paragraphs */
+p {
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+/* Slider bar for deciles */
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80%;  /* Slider width as 80% of its container */
+  height: 15px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+  display: block;  /* Ensures that margin auto is effective */
+  margin: 20px auto;  /* Center the slider horizontally */
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+#sliderTicks {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;  /* Match the slider's width */
+  margin: 0 auto;  /* Center the ticks container like the slider */
+  padding: 0;  /* Adjust padding if necessary based on exact alignment needs */
+}
+
+#sliderTicks span {
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  user-select: none;  /* Prevent text selection */
+}
+
+#sliderTicks span::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 10px;
+  background-color: black;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -15px;
 }

@@ -8,13 +8,21 @@ export class DecileRepresentations {
 
   setupEventListeners() {
     console.log('Setting up event listeners for decileRepresentations')
-    const submitButton = document.getElementById('decileSubmitButton')
-    submitButton.addEventListener('click', () => this.manipulateDecileData())
+    const slider = document.getElementById('decileSlider')
+    const output = document.getElementById('decileValue')
+    slider.oninput = function () {
+      output.value = this.value // Update the output value display
+    }
+    slider.addEventListener('change', () =>
+      this.manipulateDecileData(slider.value)
+    ) // Change triggers on mouse release
   }
 
-  manipulateDecileData() {
-    console.log('You have attempted to trigger: manipulateDecileData')
-    const decile_number = document.getElementById('decileInput').value
+  manipulateDecileData(decile_number) {
+    console.log(
+      'You have attempted to trigger: manipulateDecileData for Decile Number:',
+      decile_number
+    )
     fetch('/manipulate-average-decile-education', {
       method: 'POST',
       headers: {
@@ -26,7 +34,17 @@ export class DecileRepresentations {
       .then((data) => {
         if (data && data.percentages) {
           // Validate data structure
-          this.graphingFunc.updateGraph(this.graphingFunc.formatGraphData(data))
+          const enhancedData = {
+            ...data, // Spread existing data to maintain other properties
+            LSOAinfo: {
+              LSOA_name: `Mean data for: `, // Custom LSOA_name
+              LSOA_code: ' ', // Maintain original LSOA_code if exists
+              IMD_Decile: decile_number, // Use input decile_number as IMD_Decile
+            },
+          }
+          this.graphingFunc.updateGraph(
+            this.graphingFunc.formatGraphData(enhancedData)
+          ) // Pass the enhanced data to the graphing functionality
         }
       })
       .catch((error) => {

@@ -11,7 +11,7 @@ export class GraphingFunctionality {
     const LSOAinfo = {
       LSOA_name: data.LSOAinfo?.LSOA_name || '',
       LSOA_code: data.LSOAinfo?.LSOA_code || '',
-      IMD_Decile: data.LSOAinfo?.IMD_Decile || 'N/A', // Assuming IMD_Decile might also be optional
+      IMD_Decile: data.LSOAinfo?.IMD_Decile || '', 
     }
 
     return {
@@ -55,9 +55,12 @@ export class GraphingFunctionality {
       },
     ]
 
-    const margin = { top: 40, right: 30, bottom: 150, left: 60 },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom
+    const margin = { top: 40, right: 30, bottom: 150, left: 60 }
+    const width =
+      document.getElementById('graphDiv').offsetWidth -
+      margin.left -
+      margin.right // Dynamically get parent div width
+    const height = 500 - margin.top - margin.bottom
 
     document.getElementById('graphTitle').innerText = graphTitle
     d3.select('#graph svg').remove()

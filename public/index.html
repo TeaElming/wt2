@@ -6,7 +6,7 @@
   <title>Dynamic Bar Graph</title>
   <link rel="stylesheet" href="./index.css">
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script type="module" src="./index.js"  ></script>
+  <script type="module" src="./index.js"></script>
 
   <!-- Potentially Delete-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
@@ -20,66 +20,68 @@
   <header>
     <h1>Education and IMD Decile Data</h1>
     <h2>This application aims to display education levels for individual LSOAs and Deciles.</h2>
-    <nav>
-
-    </nav>
   </header>
 
-  <div>
-    <h2>Education and IMD Decile Data</h2>
-    <p>Zoom in and click on the map to view the education levels for the selected LSOA.</p>
-    <p>Click on the bar graph to view the education levels for the selected IMD Decile.</p>
-  </div>
 
-
-  <div id="outerGeoCodeDiv">
-    <div id="fakeGeoCodeNav">
-      <p><i>Can't find the LSOA that you are looking for?</i></p>
+  <div id="selectiongrid">
+    <div id="infodiv">
+      <p>This application offers two ways of viewing data: either by specific LSOA or by IMD level.</p>
     </div>
-    <div id="geoCodeDiv">
-      <p><i>Search for a specific LSOA code here: </i></p>
-      <form id="geoCodeForm">
-        <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
-        <button type="button" id="submitGeoCodeButton" onclick="manipulateGeoCodeData()">Submit</button>
+    <div id="outerGeoCodeDiv">
+      <div id="geoCodeDiv">
+        <p><i>Type in a specific LSOA code. If you are uncertain about the code, please use the provided list. </i></p>
+        <form id="geoCodeForm">
+          <input type="text" id="geoCodeInput" placeholder="Enter GeoCode (e.g., E01000001)">
+          <button type="button" id="submitGeoCodeButton" onclick="manipulateGeoCodeData()">Submit</button>
+          <div id="geoCodeError" style="color:red;"></div>
+        </form>
+        <pre id="geoCodeResult"></pre>
+      </div>
+    </div>
+
+    <div id="decileDiv">
+      <h2>View Data by Indices of Multiple Deprivation (IMD) Decile</h2>
+      <p>Presents the mean education levels for all LSOAs within the IMD Decile.</p>
+      <form id="decileForm">
+        <label for="decileSlider">Select Decile (Lowest to Highest):</label>
+        <input type="range" id="decileSlider" min="1" max="10" value="1" class="slider">
+        <output id="decileValue">5</output>
+        <div id="sliderTicks">
+          <span>1</span> <span>2</span> <span>3</span> <span>4</span> <span>5</span>
+          <span>6</span> <span>7</span> <span>8</span> <span>9</span> <span>10</span>
+        </div>
       </form>
-      <pre id="geoCodeResult"></pre>
+      <pre id="decileResult"></pre>
     </div>
+
+
   </div>
 
 
 
-  <h1>There are a total of <span id="totalLSOAs">0</span> LSOAs in England. Start typing, either a specific LSOA code or
-    the name of an area, to narrow it down</h1>
+  <div id="optionsListDiv">
+    <h1>LSOAs in England: <span id="totalLSOAs">0</span> </h1>
+    <p>Start typing, either a specific LSOA code or
+      the name of an area, to narrow it down</p>
 
-  <input type="text" id="searchInput" placeholder="Search LSOAs...">
-  <div id="resultsContainer"></div>
-  <button id="prevButton" onclick="goToPrevPage()">Previous</button>
-  <button id="nextButton" onclick="goToNextPage()">Next</button>
-  <span id="pageInfo"></span>
-
+    <input type="text" id="searchInput" placeholder="Search LSOAs...">
+    <div id="resultsContainer"></div>
+    <button id="prevButton" onclick="goToPrevPage()">Previous</button>
+    <button id="nextButton" onclick="goToNextPage()">Next</button>
+    <span id="pageInfo"></span>
   </div>
 
 
-  <div id="decileDiv">
-    <h2>View Data by Indices of Multiple Deprivation (IMDB) Decile</h2>
-    <p>Presents the mean education levels for all LSOAs within the IMD Decile.</p>
-    <form id="decileForm">
-      <input type="text" id="decileInput" placeholder="Enter Decile Number">
-      <button type="button" id="decileSubmitButton">Submit</button>
-    </form>
-    <pre id="decileResult"></pre>
-  </div>
 
-
-  <div id="map" style="width: 800px; height: 600px;"></div>
+  <div id="map"></div>
   <script type="module" src="./js/mapScript.js"></script>
 
 
-
   <div id="graphDiv">
-    <h2 id="graphTitle">Graph Title</h2>
-    <div id="graph"></div>
-    <p>That is all.</p>
+    <h2 id="graphTitle"></h2>
+    <div id="graph">
+      <p>Select a LSOA code or a IMD Level to view a graph.</p>
+    </div>
   </div>
 </body>
 
