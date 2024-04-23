@@ -13,7 +13,7 @@ export class LsoaGraph {
 
   setupEventListeners() {
     const submitButton = document.getElementById('submitGeoCodeButton')
-    submitButton.addEventListener('submit', () => {
+    submitButton.addEventListener('click', () => {
       const geoCode = document.getElementById('geoCodeInput').value
       this.manipulateGeoCodeData(geoCode)
     })
@@ -25,32 +25,43 @@ export class LsoaGraph {
    */
   manipulateGeoCodeData(geoCode) {
     console.log('You have attempted to trigger: manipulateGeoCodeData')
-    if (!geoCode) {
-      geoCode = document.getElementById('geoCodeInput').value
+    const errorDiv = document.getElementById('geoCodeError') // Get the error message div
+
+    if (!geoCode.trim()) {
+      errorDiv.innerText = 'Please enter a valid code' // Update the error message
+      return // Exit the function if the code is invalid
+    } else {
+      errorDiv.innerText = '' // Clear any previous error messages
     }
 
     console.log('For geo code: ' + geoCode)
 
     fetch('/manipulate-geo-code-data', {
-      // This is the route that the server is listening for
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ geoCode }), // Ensuring we are sending the geoCode as a JSON object.
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data') // Throw an error if response is not okay
+        }
+        return response.json()
+      })
       .then((data) => {
         if (data && data.percentages) {
-          // Validate data structure
-          console.log('Making it into the response bit? ')
           this.graphingFunc.updateGraph(this.graphingFunc.formatGraphData(data))
+        } else {
+          // No valid data received, update the error message accordingly
+          errorDiv.innerText =
+            'Please enter a valid LSOA code or use the provided list.'
         }
       })
       .catch((error) => {
         console.error('Error:', error)
-        document.getElementById('geoCodeResult').innerText =
-          'Error: ' + error.toString()
+        errorDiv.innerText =
+          'Please enter a valid LSOA code or use the provided list.'
       })
   }
 }
